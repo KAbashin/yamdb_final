@@ -62,7 +62,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/api_yamdb:sprint_16
-            sudo docker stop $(sudo docker ps -a -q)
+            sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
