@@ -1,4 +1,4 @@
-name: Django-app workflow
+name: API_yamdb-app workflow
 
 on: [push]
 
@@ -28,7 +28,7 @@ jobs:
         python -m flake8
         # перейти в папку, содержащую manage.py — 
         #<корневая_папка_infra_actions>/<папка_проекта>/manage.py
-        cd infra_project/
+        cd api_yamdb/
         # запустить написанные разработчиком тесты
         python manage.py test
 
@@ -54,7 +54,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: kabashin/infra_actions:latest
+          tags: kabashin/api_yamdb:sprint_16
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,10 +69,10 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             # Выполняет pull образа с DockerHub
-            sudo docker pull kabashin/infra_actions:latest
+            sudo docker pull kabashin/api_yamdb:sprint_16
             #остановка всех контейнеров
             sudo docker stop $(sudo docker ps -a -q)
-            sudo docker run --rm -d -p 5000:5000 kabashin/infra_actions
+            sudo docker run --rm -d -p 8000:8000 kabashin/api_yamdb:sprint_16
 
   send_message:
     runs-on: ubuntu-latest
@@ -83,4 +83,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ github.workflow }} успешно выполнен!
+          message: ${{ github.workflow }} успешно выполнен! Проект доступен по адресу http://158.160.9.227:8000
