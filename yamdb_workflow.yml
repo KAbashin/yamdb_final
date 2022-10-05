@@ -62,8 +62,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            cd api_yamdb_final/
-            sudo docker pull kabashin/api_yamdb:sprint_16
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
