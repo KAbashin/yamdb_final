@@ -22,9 +22,9 @@ REST API проект для сервиса YaMDb — сбор отзывов о
 >- DRF (Django REST framework) 3.12.4
 >- Docker-Compose 3.8
 >- django-filter 21.1
->- Gunicorn
+>- Gunicorn  
 
-## Ресурсы API YaMDb<br>  
+## Ресурсы API YaMDb<br>   
 **auth**: аутентификация.<br>  
   
 **users**: пользователи.<br>  
