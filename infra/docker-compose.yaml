@@ -9,13 +9,14 @@ services:
       - ./.env
   web:
     build: ../api_yamdb/
-    image: kabashin/infra_sp2:v3
+    image: kabashin/api_yamdb:sprint_16
     restart: always
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
     depends_on:
       - db
+    container_name: 'web'
     env_file:
       - ./.env
 
