@@ -23,7 +23,7 @@ REST API проект для сервиса YaMDb — сбор отзывов о
 >- Docker-Compose 3.8
 >- django-filter 21.1
 >- Gunicorn  
-
+ 
 ## Ресурсы API YaMDb<br>   
 **auth**: аутентификация.<br>  
   
