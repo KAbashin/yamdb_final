@@ -1,6 +1,6 @@
 # Итоговый проект курса "CI и CD проекта API (api_yamdb)"  
 
-[![API for YaMDB project workflow](https://github.com/kabashin/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?branch=main)](https://github.com/kabashin/yamdb_final/actions/workflows/yamdb_workflow.yml)
+[![API for YaMDB project workflow](https://github.com/photometer/yamdb_final/workflows/CI%2FCD%20api_yamdb/badge.svg)](https://github.com/photometer/yamdb_final/actions/workflows/yamdb_workflow.yml)
 
 REST API проект для сервиса YaMDb — сбор отзывов о фильмах, книгах или музыке.
 
