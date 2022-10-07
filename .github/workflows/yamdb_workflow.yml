@@ -20,10 +20,11 @@ jobs:
         pip install -r api_yamdb/requirements.txt
 
     - name: Test with pytest
-      id: run_test
+      id: run_pytest
       run: pytest
 
     - name: Test with flake8 and django tests
+      id: run_flake8_django_tests
       run: |
         python -m flake8
         cd api_yamdb/
@@ -36,8 +37,8 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ${{ steps.run_test.outcome }}
-          ${{ steps.run_test.conclusion }}
+          Статус шага pytest - ${{ steps.run_pytest.outcome }}
+          Статус шага run_flake8_django_tests - ${{ steps.run_flake8_django_tests.outcome }}
           Ошибка при тестировании - ${{ github.repository }}
           https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
