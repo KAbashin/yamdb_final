@@ -1,7 +1,5 @@
 # Итоговый проект курса "CI и CD проекта API (api_yamdb)"  
 
-[![API for YaMDB project workflow](https://github.com/kabashin/yamdb_final/workflows/CI_CD_yamdb_workflow/badge.svg)](https://github.com/kabashin/yamdb_final/actions/workflows/yamdb_workflow.yml)
-
 REST API проект для сервиса YaMDb — сбор отзывов о фильмах, книгах или музыке.
 
 
@@ -22,7 +20,9 @@ REST API проект для сервиса YaMDb — сбор отзывов о
 >- DRF (Django REST framework) 3.12.4
 >- Docker-Compose 3.8
 >- django-filter 21.1
->- Gunicorn 
+>- Gunicorn
+>- DockerHub
+
  
 ## Ресурсы API YaMDb<br>   
 **auth**: аутентификация.<br>  
@@ -95,32 +95,32 @@ DB_HOST=db
 DB_PORT=5432
 ```  
   
-API доступен по адресу [http://127.0.0.1/api/v1/](http://127.0.0.1/api/v1/).
+API доступен по адресу [http://158.160.9.227/api/v1/](http://158.160.9.227/api/v1/).
   
-Документация API YaMDb доступна по адресу [http://127.0.0.1/redoc/](http://127.0.0.1/redoc/)
+Документация API YaMDb доступна по адресу [http://158.160.9.227/redoc/](http://158.160.9.227/redoc/)
 
 ***Скачать образ YaMDb из репозитория на DockerHub:***
 ```bash
-docker pull kabashin/infra_sp2:v3
+docker pull kabashin/api_yamdb:sprint_16
 ```
 
 ## Примеры запросов и ответов
 
-- *api/v1/signup/* - регистрация нового пользователя
+- *http://158.160.9.227/api/v1/signup/* - регистрация нового пользователя
 ```json
 {
   "email": "string",
   "username": "string"
 }
 ```
-- *api/v1/token/* - получить токен (используйте код из почты)
+- *http://158.160.9.227/api/v1/token/* - получить токен (используйте код из почты)
 ```json
 {
   "username": "string",
   "confirmation_code": "string"
 }
 ```
-- *api/v1/categories/* - категории произведений
+- *http://158.160.9.227/api/v1/categories/* - категории произведений
 ```json
 [
   {
@@ -136,7 +136,7 @@ docker pull kabashin/infra_sp2:v3
   }
 ]
 ```
-- *api/v1/genres/* - Жанры произведений
+- *http://158.160.9.227/api/v1/genres/* - Жанры произведений
 ```json
 [
   {
@@ -152,7 +152,7 @@ docker pull kabashin/infra_sp2:v3
   }
 ]
 ```
-- *api/v1/titles/* - Произведения
+- *http://158.160.9.227/api/v1/titles/* - Произведения
 ```json
 [
   {
@@ -181,7 +181,7 @@ docker pull kabashin/infra_sp2:v3
   }
 ]
 ```
-- *api/v1/titles/{title_id}/reviews/* - Отзывы на произведения
+- *http://158.160.9.227/api/v1/titles/{title_id}/reviews/* - Отзывы на произведения
 ```json
 [
   {
@@ -200,7 +200,7 @@ docker pull kabashin/infra_sp2:v3
   }
 ]
 ```
-- *api/v1/titles/{title_id}/reviews/{rewiew_id}/comments/* - Комментарии к отзывам
+- *http://158.160.9.227/api/v1/titles/{title_id}/reviews/{rewiew_id}/comments/* - Комментарии к отзывам
 ```json
 [
   {
@@ -218,7 +218,7 @@ docker pull kabashin/infra_sp2:v3
   }
 ]
 ```
-- *api/v1/users/* - Управление пользователями
+- *http://158.160.9.227/api/v1/users/* - Управление пользователями
 ```json
 [
   {
@@ -238,7 +238,7 @@ docker pull kabashin/infra_sp2:v3
   }
 ]
 ```
-- *api/v1/users/me/* - Управление своей учетной записью
+- *http://158.160.9.227/api/v1/users/me/* - Управление своей учетной записью
 ```json
 {
   "username": "string",
@@ -252,3 +252,5 @@ docker pull kabashin/infra_sp2:v3
 
 Разработчик:<br>
 Константин Абашин E-mail: kabashin@mail.ru<br>
+
+[![API for YaMDB project workflow](https://github.com/kabashin/yamdb_final/workflows/CI_CD_yamdb_workflow/badge.svg)](https://github.com/kabashin/yamdb_final/actions/workflows/yamdb_workflow.yml)

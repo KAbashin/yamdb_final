@@ -8,17 +8,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
 
     - name: Install dependencies
-      run: | 
+      run: |
         python -m pip install --upgrade pip
         pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
         pip install -r api_yamdb/requirements.txt
 
+    - id: run_test
     - name: Test with pytest
       run: pytest
 
@@ -27,6 +28,18 @@ jobs:
         python -m flake8
         cd api_yamdb/
         python manage.py test
+
+    - name: Send message if Tests failed
+      if: ${{ failure() }}
+      uses: appleboy/telegram-action@master
+      with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ steps.run_test.outcome }}
+            ${{ steps.run_test.conclusion }}
+            Ошибка при тестировании - ${{ github.repository }}
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
@@ -48,6 +61,16 @@ jobs:
           context: ./api_yamdb/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/yamdb_final:sprint_16
+
+      - name: Send message if build_and_push_to_docker_hub failed
+        if: ${{ failure() }}
+        uses: appleboy/telegram-action@master
+        with:
+            to: ${{ secrets.TELEGRAM_TO }}
+            token: ${{ secrets.TELEGRAM_TOKEN }}
+            message: |
+              Ошибка при сборке/отправке образа на DockerHub  - ${{ github.repository }}
+              https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
   deploy:
     name: Deploy to remote server
@@ -72,9 +95,9 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             sudo docker-compose up -d
-            sudo docker compose exec -T web python manage.py makemigrations
-            sudo docker compose exec -T web python manage.py migrate
-            sudo docker compose exec -T web python manage.py collectstatic --no-input
+            sudo docker-compose exec -T web python manage.py makemigrations
+            sudo docker-compose exec -T web python manage.py migrate
+            sudo docker-compose exec -T web python manage.py collectstatic --no-input
 
   send_message:
     runs-on: ubuntu-latest
@@ -85,4 +108,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ github.workflow }} успешно выполнен!
+          message: ${{ github.workflow }} для сайта ${{ secrets.HOST }} успешно выполнен!
