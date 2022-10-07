@@ -36,8 +36,6 @@ jobs:
       if: ${{ failure() }}
       uses: appleboy/telegram-action@master
       with:
-        to: ${{ env.secretstg_to }}
-        token: ${{ env.secretstg_token }}
         message: |
           ${{ steps.run_test.outcome }}
           ${{ steps.run_test.conclusion }}
