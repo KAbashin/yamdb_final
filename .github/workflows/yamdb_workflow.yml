@@ -5,6 +5,9 @@ on: [push]
 jobs:
   tests:
     runs-on: ubuntu-latest
+    env:
+      secretstg_to: ${{ secrets.TELEGRAM_TO }}
+      secretstg_token: ${{ secrets.TELEGRAM_TOKEN }}
 
     steps:
     - uses: actions/checkout@v2
@@ -33,8 +36,8 @@ jobs:
       if: ${{ failure() }}
       uses: appleboy/telegram-action@master
       with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
+        to: ${{ env.secretstg_to }}
+        token: ${{ env.secretstg_token }}
         message: |
           ${{ steps.run_test.outcome }}
           ${{ steps.run_test.conclusion }}
